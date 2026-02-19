@@ -4,9 +4,18 @@ body, html { width: 100%; height: 100%; background-color: #f4f4f0; overflow: hid
 #app-container { display: flex; flex-direction: column; height: 100%; padding: 15px; }
 
 /* Header & Typography */
-.top-bar { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.top-bar { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
 .title { font-size: 2.2rem; color: #000; text-shadow: 2px 2px 0px #fff, 4px 4px 0px #000; border: 4px solid #000; padding: 10px; background: #c9a0ff; transform: rotate(-1deg); box-shadow: 6px 6px 0px #000; text-align: center; }
 .stats-box { border: 3px solid #000; background: #fff; padding: 10px; box-shadow: 4px 4px 0px #000; text-align: center; font-size: 1.2rem; }
+
+/* Calendar Strip */
+.calendar-wrapper { width: 100%; border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 15px; }
+.calendar-strip { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 5px; scrollbar-width: none; }
+.calendar-strip::-webkit-scrollbar { display: none; }
+.cal-day { border: 3px solid #000; background: #fff; min-width: 60px; text-align: center; padding: 10px 5px; box-shadow: 3px 3px 0px #000; cursor: pointer; transition: 0.1s; }
+.cal-day.active { background: #00e676; transform: translate(3px, 3px); box-shadow: 0px 0px 0px #000; }
+.cal-date { font-size: 1.5rem; }
+.cal-name { font-size: 0.8rem; }
 
 /* Buttons */
 .neu-btn { border: 4px solid #000; color: #000; font-size: 1.2rem; padding: 12px; cursor: pointer; box-shadow: 6px 6px 0px #000; transition: all 0.1s ease; text-transform: uppercase; }
@@ -20,18 +29,20 @@ body, html { width: 100%; height: 100%; background-color: #f4f4f0; overflow: hid
 .bg-yellow { background-color: #ffde59; }
 .bg-green { background-color: #38e06a; }
 .bg-red { background-color: #ff4747; color: white; text-shadow: 1px 1px 0px #000; }
-.bg-white { background-color: #fff; }
 
 /* Task List */
 .scroll-area { flex: 1; overflow-y: auto; padding-right: 5px; padding-bottom: 80px; }
 .empty-state { text-align: center; padding: 40px 20px; border: 4px dashed #000; margin-top: 20px; background: #eee; }
 
-/* Task Card */
-.task-card { border: 4px solid #000; padding: 15px; margin-bottom: 15px; box-shadow: 6px 6px 0px #000; display: flex; flex-direction: column; gap: 8px; }
+/* Task Card & Swiping */
+.task-card { border: 4px solid #000; padding: 15px; margin-bottom: 15px; box-shadow: 6px 6px 0px #000; display: flex; flex-direction: column; gap: 8px; position: relative; transition: transform 0.3s ease-out; background: #fff; }
+.swiping-left { transform: translateX(-120%); }
+.swiping-right { transform: translateX(120%); }
 .task-header { display: flex; justify-content: space-between; align-items: flex-start; }
 .task-title { font-size: 1.3rem; text-decoration: underline; text-decoration-thickness: 3px; }
 .task-time { font-size: 1rem; background: #000; color: #fff; padding: 3px 8px; }
-.task-desc { font-size: 1rem; color: #333; }
+.task-desc { font-size: 1rem; color: #333; font-style: italic; }
+.task-notes { font-size: 0.9rem; background: #f9f9f9; padding: 8px; border: 2px dashed #000; margin-top: 5px; white-space: pre-wrap; }
 .task-actions { display: flex; gap: 10px; margin-top: 10px; }
 .action-btn { flex: 1; padding: 8px; border: 3px solid #000; background: #fff; font-weight: bold; font-size: 0.9rem; box-shadow: 3px 3px 0px #000; }
 .action-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px #000; }
@@ -39,7 +50,7 @@ body, html { width: 100%; height: 100%; background-color: #f4f4f0; overflow: hid
 /* Modals & Forms */
 .modal { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center; padding: 15px; }
 .modal.active { display: flex; }
-.modal-content { background: #f4f4f0; border: 5px solid #000; width: 100%; padding: 20px; box-shadow: 10px 10px 0px #000; }
+.modal-content { background: #f4f4f0; border: 5px solid #000; width: 100%; padding: 20px; box-shadow: 10px 10px 0px #000; max-height: 90vh; overflow-y: auto; }
 .modal-header { display: flex; justify-content: space-between; margin-bottom: 15px; }
 .close-btn { background: #ff4747; color: white; border: 3px solid #000; width: 40px; height: 40px; font-size: 1.2rem; box-shadow: 3px 3px 0px #000; }
 
