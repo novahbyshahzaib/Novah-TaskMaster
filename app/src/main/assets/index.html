@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Novah TaskMaster</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        
+        <header class="top-bar">
+            <h1 class="title">NOVAH<br>TASKMASTER</h1>
+            <div class="stats-box">
+                <p>COMPLETED: <span id="stat-done">0</span></p>
+            </div>
+            <button id="btn-battery" class="neu-btn small-btn bg-yellow">🔋 FIX ALARMS</button>
+        </header>
+
+        <main id="task-list" class="scroll-area">
+            <div id="empty-state" class="empty-state">
+                <h2>ALL CLEAR!</h2>
+                <p>No tasks scheduled. Time to code or chill.</p>
+            </div>
+        </main>
+
+        <button id="btn-add-task" class="fab">+</button>
+
+        <div id="modal-add" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>NEW TASK</h2>
+                    <button id="btn-close-modal" class="close-btn">X</button>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" id="task-title" class="neu-input" placeholder="Task Title (e.g. Physics Ch 1)">
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="task-desc" class="neu-input" rows="3" placeholder="Why? (e.g. Need to finish notes)"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <input type="date" id="task-date" class="neu-input half">
+                    <input type="time" id="task-time" class="neu-input half">
+                </div>
+
+                <div class="form-group">
+                    <select id="task-priority" class="neu-input">
+                        <option value="high">🚨 URGENT (Red)</option>
+                        <option value="med" selected>⚡ NORMAL (Yellow)</option>
+                        <option value="low">🌱 CHILL (Green)</option>
+                    </select>
+                </div>
+
+                <div class="form-group check-group">
+                    <input type="checkbox" id="task-alarm" checked>
+                    <label for="task-alarm">Ring Loud System Alarm</label>
+                </div>
+
+                <button id="btn-save-task" class="neu-btn big-btn bg-green">SAVE & SCHEDULE</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
