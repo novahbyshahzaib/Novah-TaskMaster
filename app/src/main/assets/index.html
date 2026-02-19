@@ -17,6 +17,11 @@
             <button id="btn-battery" class="neu-btn small-btn bg-yellow">🔋 FIX ALARMS</button>
         </header>
 
+        <div class="calendar-wrapper">
+            <div id="calendar-strip" class="calendar-strip">
+                </div>
+        </div>
+
         <main id="task-list" class="scroll-area">
             <div id="empty-state" class="empty-state">
                 <h2>ALL CLEAR!</h2>
@@ -38,7 +43,11 @@
                 </div>
                 
                 <div class="form-group">
-                    <textarea id="task-desc" class="neu-input" rows="3" placeholder="Why? (e.g. Need to finish notes)"></textarea>
+                    <textarea id="task-desc" class="neu-input" rows="2" placeholder="Why? (e.g. Need to finish notes)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <textarea id="task-notes" class="neu-input" rows="3" placeholder="Detailed Notes / To-Dos"></textarea>
                 </div>
 
                 <div class="form-row">
@@ -56,7 +65,7 @@
 
                 <div class="form-group check-group">
                     <input type="checkbox" id="task-alarm" checked>
-                    <label for="task-alarm">Ring Loud System Alarm</label>
+                    <label for="task-alarm">Open System Alarm</label>
                 </div>
 
                 <button id="btn-save-task" class="neu-btn big-btn bg-green">SAVE & SCHEDULE</button>
