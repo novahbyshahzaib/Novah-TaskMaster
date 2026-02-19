@@ -2,8 +2,6 @@ package com.novah.taskmaster;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -45,7 +43,6 @@ public class MainActivity extends Activity {
     }
 
     // --- THE JAVASCRIPT INTERFACE ---
-    // These functions can be triggered directly from your HTML/JS files!
     public class NovahBridge {
         Context mContext;
 
@@ -54,32 +51,22 @@ public class MainActivity extends Activity {
         }
 
         @JavascriptInterface
-        public void setAlarm(String id, String title, String desc, long timeInMillis) {
-            AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(mContext, AlarmReceiver.class);
-            intent.putExtra("title", title);
-            intent.putExtra("desc", desc);
+        public void setAlarm(String id, String title, String desc, int hour, int minute) {
+            // This forces the built-in Android System Clock to set the alarm!
+            Intent intent = new Intent(android.provider.AlarmClock.ACTION_SET_ALARM);
+            intent.putExtra(android.provider.AlarmClock.EXTRA_MESSAGE, title + " - " + desc);
+            intent.putExtra(android.provider.AlarmClock.EXTRA_HOUR, hour);
+            intent.putExtra(android.provider.AlarmClock.EXTRA_MINUTES, minute);
             
-            // Generate a unique ID for this specific task
-            int reqCode = Math.abs(id.hashCode()); 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, reqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
-            // Android 12+ requires exact alarm permissions
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                if (alarmManager.canScheduleExactAlarms()) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-                } else {
-                    Intent permIntent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-                    mContext.startActivity(permIntent);
-                }
-            } else {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-            }
+            // We set SKIP_UI to false so it pops up, allowing you to pick your custom music/ringtone!
+            intent.putExtra(android.provider.AlarmClock.EXTRA_SKIP_UI, false); 
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intent);
         }
 
         @JavascriptInterface
         public void askBatteryOptimization() {
-            // This pops up the system screen asking to ignore battery limits!
+            // This pops up the system screen asking to ignore battery limits
             String packageName = mContext.getPackageName();
             PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
             if (!pm.isIgnoringBatteryOptimizations(packageName)) {
